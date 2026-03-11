@@ -1,5 +1,7 @@
 # Playwright Browser Connector
 
+**English** | [中文](README_CN.md)
+
 Connect Playwright to your existing Chrome browser with login state, instead of opening a new browser window.
 
 ## Features
