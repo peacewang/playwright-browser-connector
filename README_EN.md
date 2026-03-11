@@ -79,6 +79,7 @@ Claude will automatically recognize your intent and use `mcp__playwright-ext__*`
 | Command | Description |
 |---------|-------------|
 | `/setup-browser <token>` | Configure Playwright MCP Bridge connection, writes `.mcp.json` |
+| `/browser-connector` | Activate browser connector skill, guides using existing Chrome browser |
 
 ### Notes
 
