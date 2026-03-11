@@ -1,5 +1,5 @@
 ---
-name: Browser Connector
+name: browser-connector
 description: This skill should be used when the user asks to "connect to existing browser", "use my Chrome login state", "operate my current browser", "reuse browser session", "connect Playwright to Chrome", or wants Playwright to control their already-open Chrome browser instead of launching a new one.
 version: 1.0.0
 ---
