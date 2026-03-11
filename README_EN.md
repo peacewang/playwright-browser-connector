@@ -17,7 +17,11 @@ Connect Playwright to your existing Chrome browser with login state, instead of 
 ### From GitHub
 
 ```bash
-claude plugin add peacewang/playwright-browser-connector
+# 1. Add marketplace
+claude plugin marketplace add peacewang/playwright-browser-connector
+
+# 2. Install plugin
+claude plugin install playwright-browser-connector
 ```
 
 ### From Local Directory

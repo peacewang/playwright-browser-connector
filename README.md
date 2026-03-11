@@ -17,7 +17,11 @@
 ### 从 GitHub 安装
 
 ```bash
-claude plugin add peacewang/playwright-browser-connector
+# 1. 添加 marketplace
+claude plugin marketplace add peacewang/playwright-browser-connector
+
+# 2. 安装插件
+claude plugin install playwright-browser-connector
 ```
 
 ### 从本地目录加载
