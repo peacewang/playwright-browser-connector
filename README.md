@@ -1,55 +1,60 @@
 # Playwright Browser Connector
 
-**English** | [中文](README_CN.md)
+[English](README_EN.md) | **中文**
 
-Connect Playwright to your existing Chrome browser with login state, instead of opening a new browser window.
+让 Playwright 连接到你已打开的 Chrome 浏览器，直接复用登录状态，而不是每次都打开一个全新的浏览器窗口。
 
-## Features
+## 功能特性
 
-- Reuse your Chrome browser's login sessions, cookies, and local storage
-- No need to re-authenticate on websites
-- Control your actual browser tabs via Claude Code
-- Full Playwright capabilities: 22 tools including navigate, click, type, screenshot, evaluate, drag, tabs, network inspection, and more
-- Cross-platform: Windows, macOS (Intel & Apple Silicon), Linux
+- 复用 Chrome 浏览器的登录会话、Cookie 和本地存储
+- 无需在网站上重新登录
+- 通过 Claude Code 直接控制你正在使用的浏览器标签页
+- 完整的 Playwright 能力：22 个工具，包括导航、点击、输入、截图、执行脚本、拖拽、标签管理、网络请求检查等
+- 跨平台支持：Windows、macOS（Intel 和 Apple Silicon）、Linux
 
-## Installation
+## 安装
 
-### From GitHub
+### 从 GitHub 安装
 
 ```bash
 claude plugin add peacewang/playwright-browser-connector
 ```
 
-### From Local Directory
+### 从本地目录加载
 
 ```bash
 claude --plugin-dir /path/to/playwright-browser-connector
 ```
 
-## Prerequisites
+## 环境依赖
 
-- **Node.js** (with `npx`) installed
-- **Chrome browser**
+| 依赖项               | 说明                                   |
+| ----------------- | ------------------------------------ |
+| **Node.js** (≥18) | 需要 `npx` 命令可用，用于启动 MCP 服务器           |
+| **Chrome 浏览器**    | 需要安装 Playwright MCP Bridge 扩展        |
+| **网络连接**          | 首次运行时 `npx` 需要下载 `@playwright/mcp` 包 |
 
-## Quick Start
+> Claude Code 本身不算额外依赖（它是运行环境）。除以上三项外，无其他环境依赖。无需安装 Python、Docker、数据库或其他任何工具。
 
-### 1. Install Chrome Extension
+## 快速上手
 
-Install the [Playwright MCP Bridge](https://chromewebstore.google.com/detail/playwright-mcp-bridge/mmlmfjhmonkocbjadbfplnigmagldckm) extension in Chrome.
+### 1. 安装 Chrome 扩展
 
-### 2. Get Token
+在 Chrome 中安装 [Playwright MCP Bridge](https://chromewebstore.google.com/detail/playwright-mcp-bridge/mmlmfjhmonkocbjadbfplnigmagldckm) 扩展。
 
-Click the extension icon in Chrome to view your `PLAYWRIGHT_MCP_EXTENSION_TOKEN`.
+### 2. 获取 Token
 
-### 3. Configure
+点击 Chrome 工具栏中的扩展图标，复制显示的 `PLAYWRIGHT_MCP_EXTENSION_TOKEN`。
 
-Run the setup command in Claude Code:
+### 3. 配置
+
+在 Claude Code 中运行 setup 命令：
 
 ```
-/setup-browser <your-token>
+/setup-browser <你的token>
 ```
 
-Or manually create a `.mcp.json` file in your working directory or home directory:
+或者手动在工作目录或用户主目录下创建 `.mcp.json` 文件：
 
 ```json
 {
@@ -58,75 +63,85 @@ Or manually create a `.mcp.json` file in your working directory or home director
       "command": "npx",
       "args": ["@playwright/mcp@latest", "--extension"],
       "env": {
-        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "<your-token>"
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "<你的token>"
       }
     }
   }
 }
 ```
 
-### 4. Restart Claude Code
+### 4. 重启 Claude Code
 
-The extension should show "MCP client connected" after restart.
+重启后，Chrome 扩展应显示 "MCP client connected"。
 
-## How It Works
+## 工作原理
 
-The standard Playwright MCP opens a new browser. This plugin uses `@playwright/mcp --extension` mode, which connects through the Chrome extension to your already-open browser, preserving all login state.
+标准的 Playwright MCP 会打开一个全新的浏览器窗口。本插件使用 `@playwright/mcp --extension` 模式，通过 Chrome 扩展连接到你已经打开的浏览器，从而保留所有登录状态。
 
 ```
-Claude Code → playwright-ext MCP server (--extension mode)
+Claude Code → playwright-ext MCP 服务器 (--extension 模式)
                     ↓
-         Playwright MCP Bridge Chrome Extension (via token auth)
+         Playwright MCP Bridge Chrome 扩展 (通过 token 认证)
                     ↓
-         User's existing Chrome browser (with login state)
+         用户已打开的 Chrome 浏览器 (保留登录状态)
 ```
 
-## Available Tools (22)
+## 可用工具 (22 个)
 
-All standard Playwright MCP tools are available through the `mcp__playwright-ext__` prefix:
+所有工具通过 `mcp__playwright-ext__` 前缀调用：
 
-| Tool                       | Function                            |
-| -------------------------- | ----------------------------------- |
-| `browser_navigate`         | Navigate to a URL                   |
-| `browser_navigate_back`    | Go back in history                  |
-| `browser_snapshot`         | Capture page accessibility snapshot |
-| `browser_take_screenshot`  | Take screenshot                     |
-| `browser_click`            | Click elements                      |
-| `browser_type`             | Type text into elements             |
-| `browser_fill_form`        | Fill multiple form fields           |
-| `browser_press_key`        | Press keyboard keys                 |
-| `browser_select_option`    | Select dropdown options             |
-| `browser_hover`            | Hover over elements                 |
-| `browser_drag`             | Drag and drop elements              |
-| `browser_tabs`             | List/create/close/select tabs       |
-| `browser_evaluate`         | Execute JavaScript on page          |
-| `browser_run_code`         | Run Playwright code snippet         |
-| `browser_file_upload`      | Upload files                        |
-| `browser_handle_dialog`    | Handle browser dialogs              |
-| `browser_console_messages` | Get console messages                |
-| `browser_network_requests` | Get network requests                |
-| `browser_wait_for`         | Wait for text/condition             |
-| `browser_resize`           | Resize browser window               |
-| `browser_close`            | Close the page                      |
-| `browser_install`          | Install browser binary              |
+| 工具                         | 功能                 |
+| -------------------------- | ------------------ |
+| `browser_navigate`         | 导航到指定 URL          |
+| `browser_navigate_back`    | 返回上一页              |
+| `browser_snapshot`         | 获取页面无障碍快照          |
+| `browser_take_screenshot`  | 页面截图               |
+| `browser_click`            | 点击元素               |
+| `browser_type`             | 输入文本               |
+| `browser_fill_form`        | 批量填写表单             |
+| `browser_press_key`        | 按下键盘按键             |
+| `browser_select_option`    | 选择下拉菜单选项           |
+| `browser_hover`            | 悬停在元素上             |
+| `browser_drag`             | 拖放元素               |
+| `browser_tabs`             | 管理浏览器标签页           |
+| `browser_evaluate`         | 在页面中执行 JavaScript  |
+| `browser_run_code`         | 运行 Playwright 代码片段 |
+| `browser_file_upload`      | 上传文件               |
+| `browser_handle_dialog`    | 处理浏览器对话框           |
+| `browser_console_messages` | 获取控制台消息            |
+| `browser_network_requests` | 获取网络请求             |
+| `browser_wait_for`         | 等待文本或条件            |
+| `browser_resize`           | 调整浏览器窗口大小          |
+| `browser_close`            | 关闭页面               |
+| `browser_install`          | 安装浏览器二进制文件         |
 
-## Platform Support
+## 平台支持
 
-| Platform                          | Status    |
-| --------------------------------- | --------- |
-| Windows 10/11                     | Supported |
-| macOS (Intel)                     | Supported |
-| macOS (Apple Silicon M1/M2/M3/M4) | Supported |
-| Linux                             | Supported |
+| 平台                                | 状态  |
+| --------------------------------- | --- |
+| Windows 10/11                     | 支持  |
+| macOS (Intel)                     | 支持  |
+| macOS (Apple Silicon M1/M2/M3/M4) | 支持  |
+| Linux                             | 支持  |
 
-The plugin uses only `npx` (Node.js) and a Chrome extension — no native binaries or platform-specific code.
+本插件仅依赖 `npx`（Node.js）和 Chrome 扩展，无任何原生二进制文件或平台特定代码。
 
-## Troubleshooting
+## 常见问题
 
-- **Extension shows "No MCP clients connected"**: Verify the token matches, restart Claude Code
-- **Still opens new browser**: Make sure to use `mcp__playwright-ext__*` tools, not `mcp__plugin_playwright_playwright__*`
-- **Token changed**: Update token in `.mcp.json` and restart
+### 扩展显示 "No MCP clients connected"
 
-## License
+- 确认 `.mcp.json` 中的 token 与扩展弹窗中显示的一致
+- 更新 `.mcp.json` 后需要重启 Claude Code
+- 确认终端中可以运行 `npx @playwright/mcp@latest --extension`
+
+### 还是打开了新的浏览器窗口
+
+确保使用的是 `mcp__playwright-ext__*` 系列工具，而不是 `mcp__plugin_playwright_playwright__*`。后者是插件系统自带的 Playwright，始终会打开新窗口。
+
+### Token 变了
+
+如果 Chrome 扩展重新生成了 token（例如重新安装扩展后），更新 `.mcp.json` 中的 token 并重启 Claude Code。
+
+## 许可证
 
 MIT
