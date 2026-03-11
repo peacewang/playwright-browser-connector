@@ -46,10 +46,10 @@ claude --plugin-dir /path/to/playwright-browser-connector
 ### 更新插件
 
 ```bash
-claude plugin update playwright-browser-connector
+claude plugin update playwright-browser-connector@playwright-browser-connector
 ```
 
-> 仓库有新的代码推送即可更新，无需打 tag 或发 release。更新后重启 Claude Code 生效。
+> 插件通过版本号判断是否需要更新。仓库推送新代码后，需同步更新版本号才能被识别为新版本。更新后重启 Claude Code 生效。
 
 ## 环境依赖
 
