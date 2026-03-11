@@ -24,7 +24,20 @@ claude plugin marketplace add peacewang/playwright-browser-connector
 claude plugin install playwright-browser-connector
 ```
 
-### From Local Directory
+### Clone and Install Locally
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/peacewang/playwright-browser-connector.git
+
+# 2. Add local marketplace
+claude plugin marketplace add /path/to/playwright-browser-connector
+
+# 3. Install plugin
+claude plugin install playwright-browser-connector
+```
+
+### Temporary Load (Without Installing)
 
 ```bash
 claude --plugin-dir /path/to/playwright-browser-connector

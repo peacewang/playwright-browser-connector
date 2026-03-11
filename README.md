@@ -24,7 +24,20 @@ claude plugin marketplace add peacewang/playwright-browser-connector
 claude plugin install playwright-browser-connector
 ```
 
-### 从本地目录加载
+### 克隆到本地安装
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/peacewang/playwright-browser-connector.git
+
+# 2. 添加本地 marketplace
+claude plugin marketplace add /path/to/playwright-browser-connector
+
+# 3. 安装插件
+claude plugin install playwright-browser-connector
+```
+
+### 临时加载（不安装）
 
 ```bash
 claude --plugin-dir /path/to/playwright-browser-connector
