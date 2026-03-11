@@ -48,6 +48,31 @@ claude --plugin-dir /path/to/playwright-browser-connector
 - **Node.js** (with `npx`) installed
 - **Chrome browser**
 
+## Usage
+
+### Auto Trigger (Skill)
+
+After installation and configuration, just describe what you need in natural language and the plugin triggers automatically, for example:
+
+- "Open my Twitter and summarize recent tweets"
+- "Use my browser's login state to visit GitHub"
+- "Connect to my current Chrome browser"
+- "Use my existing login to open a website"
+- "Operate on my currently open browser page"
+
+Claude will automatically recognize your intent and use `mcp__playwright-ext__*` tools to control your existing Chrome browser.
+
+### Command Trigger
+
+| Command | Description |
+|---------|-------------|
+| `/setup-browser <token>` | Configure Playwright MCP Bridge connection, writes `.mcp.json` |
+
+### Notes
+
+- The plugin uses `mcp__playwright-ext__*` tools (connects to existing browser), NOT `mcp__plugin_playwright_playwright__*` (opens new browser)
+- A Claude Code restart is required after initial configuration
+
 ## Quick Start
 
 ### 1. Install Chrome Extension

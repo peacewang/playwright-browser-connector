@@ -53,6 +53,31 @@ claude --plugin-dir /path/to/playwright-browser-connector
 
 > Claude Code 本身不算额外依赖（它是运行环境）。除以上三项外，无其他环境依赖。无需安装 Python、Docker、数据库或其他任何工具。
 
+## 使用方式
+
+### 自动触发（Skill）
+
+安装并配置完成后，在 Claude Code 中用自然语言描述需求即可自动触发插件，例如：
+
+- "帮我打开我的 Twitter，总结最近的推文"
+- "用我的浏览器登录态访问 GitHub"
+- "连接到我当前的 Chrome 浏览器"
+- "用我已有的登录状态打开某个网站"
+- "操作我当前打开的浏览器页面"
+
+Claude 会自动识别意图并使用 `mcp__playwright-ext__*` 工具操作你已打开的 Chrome 浏览器。
+
+### 命令触发
+
+| 命令                       | 说明                                         |
+| ------------------------ | ------------------------------------------ |
+| `/setup-browser <token>` | 配置 Playwright MCP Bridge 连接，写入 `.mcp.json` |
+
+### 注意事项
+
+- 插件触发后，Claude 使用的是 `mcp__playwright-ext__*` 系列工具（连接已有浏览器），而非 `mcp__plugin_playwright_playwright__*`（打开新浏览器）
+- 首次配置后需要重启 Claude Code
+
 ## 快速上手
 
 ### 1. 安装 Chrome 扩展
