@@ -46,10 +46,14 @@ claude --plugin-dir /path/to/playwright-browser-connector
 ### 更新插件
 
 ```bash
+# 1. 先更新 marketplace（拉取仓库最新代码）
+claude plugin marketplace update
+
+# 2. 再更新插件
 claude plugin update playwright-browser-connector@playwright-browser-connector
 ```
 
-> 插件通过版本号判断是否需要更新。仓库推送新代码后，需同步更新版本号才能被识别为新版本。更新后重启 Claude Code 生效。
+> 也可以在 Claude Code 中通过 `/plugin` 进入 marketplace 管理界面操作更新。插件通过版本号判断是否需要更新，更新后重启 Claude Code 生效。
 
 ## 环境依赖
 

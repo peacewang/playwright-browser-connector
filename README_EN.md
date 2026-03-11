@@ -46,10 +46,14 @@ claude --plugin-dir /path/to/playwright-browser-connector
 ### Update Plugin
 
 ```bash
+# 1. Update marketplace first (pull latest code from repository)
+claude plugin marketplace update
+
+# 2. Then update the plugin
 claude plugin update playwright-browser-connector@playwright-browser-connector
 ```
 
-> The plugin uses version numbers to detect updates. After pushing new code, update the version number in `plugin.json` and `marketplace.json` for the update to be recognized. Restart Claude Code after updating.
+> You can also update via the `/plugin` menu inside Claude Code. The plugin uses version numbers to detect updates. Restart Claude Code after updating.
 
 ## Prerequisites
 

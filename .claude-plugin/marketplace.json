@@ -9,7 +9,7 @@
     {
       "name": "playwright-browser-connector",
       "description": "Connect Playwright to your existing Chrome browser with login state, instead of opening a new browser window. Reuse login sessions, cookies, and local storage.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": {
         "name": "peacewang"
       },
