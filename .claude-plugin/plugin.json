@@ -1,0 +1,9 @@
+{
+  "name": "playwright-browser-connector",
+  "version": "1.0.0",
+  "description": "Connect Playwright to your existing Chrome browser with login state, instead of opening a new browser window.",
+  "author": {
+    "name": "peacewang"
+  },
+  "keywords": ["playwright", "browser", "chrome", "extension", "login"]
+}
