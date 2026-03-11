@@ -43,6 +43,14 @@ claude plugin install playwright-browser-connector
 claude --plugin-dir /path/to/playwright-browser-connector
 ```
 
+### Update Plugin
+
+```bash
+claude plugin update playwright-browser-connector
+```
+
+> Any new code pushed to the repository counts as an update — no tags or releases required. Restart Claude Code after updating.
+
 ## Prerequisites
 
 - **Node.js** (with `npx`) installed

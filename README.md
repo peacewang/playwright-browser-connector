@@ -43,6 +43,14 @@ claude plugin install playwright-browser-connector
 claude --plugin-dir /path/to/playwright-browser-connector
 ```
 
+### 更新插件
+
+```bash
+claude plugin update playwright-browser-connector
+```
+
+> 仓库有新的代码推送即可更新，无需打 tag 或发 release。更新后重启 Claude Code 生效。
+
 ## 环境依赖
 
 | 依赖项               | 说明                                   |
