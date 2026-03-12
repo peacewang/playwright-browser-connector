@@ -14,51 +14,22 @@ Connect Playwright to your existing Chrome browser with login state, instead of 
 
 ## Installation
 
-### From GitHub
-
 ```bash
-# 1. Add marketplace
 claude plugin marketplace add peacewang/playwright-browser-connector
-
-# 2. Install plugin
-claude plugin install playwright-browser-connector
-```
-
-### Clone and Install Locally
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/peacewang/playwright-browser-connector.git
-
-# 2. Add local marketplace
-claude plugin marketplace add /path/to/playwright-browser-connector
-
-# 3. Install plugin
-claude plugin install playwright-browser-connector
-```
-
-### Temporary Load (Without Installing)
-
-```bash
-claude --plugin-dir /path/to/playwright-browser-connector
+claude plugin install playwright-browser-connector@playwright-browser-connector
 ```
 
 ### Update Plugin
 
 ```bash
-# 1. Update marketplace first (pull latest code from repository)
+# 1. Update marketplace (pull latest code)
 claude plugin marketplace update
 
-# 2. Then update the plugin
+# 2. Update plugin
 claude plugin update playwright-browser-connector@playwright-browser-connector
 ```
 
-> You can also update via the `/plugin` menu inside Claude Code. The plugin uses version numbers to detect updates. Restart Claude Code after updating.
-
-## Prerequisites
-
-- **Node.js** (with `npx`) installed
-- **Chrome browser**
+> Since v1.4.0, the plugin includes a SessionStart hook that auto-fixes token config. `/reload-plugins` won't break the connection.
 
 ## Usage
 
@@ -122,7 +93,7 @@ Or manually create a `.mcp.json` file in your working directory or home director
 
 ### 4. Restart Claude Code
 
-The extension should show "MCP client connected" after restart.
+Restart and run `/plugin` to verify the plugin and MCP are ready.
 
 ## How It Works
 
@@ -170,8 +141,7 @@ All standard Playwright MCP tools are available through the `mcp__playwright-ext
 | Platform                          | Status    |
 | --------------------------------- | --------- |
 | Windows 10/11                     | Supported |
-| macOS (Intel)                     | Supported |
-| macOS (Apple Silicon M1/M2/M3/M4) | Supported |
+| macOS (Intel/Apple Silicon)       | Supported |
 | Linux                             | Supported |
 
 The plugin uses only `npx` (Node.js) and a Chrome extension — no native binaries or platform-specific code.
