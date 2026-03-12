@@ -20,25 +20,21 @@ Configure the Playwright MCP server to connect to the user's existing Chrome bro
    - Click the extension icon in Chrome to view the token
    - Copy and provide the token
 
-2. Determine the `.mcp.json` file location. Use the current working directory. If a `.mcp.json` already exists, merge the `playwright-ext` server entry into the existing `mcpServers` object without overwriting other servers.
+2. Create or update three locations with the token:
 
-3. Create or update `.mcp.json` with the following configuration:
+   a. **User token storage** (for SessionStart hook):
+      - Path: `~/.claude/plugins/playwright-browser-connector/token.txt`
+      - Content: just the token string
 
-```json
-{
-  "mcpServers": {
-    "playwright-ext": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest", "--extension"],
-      "env": {
-        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "<TOKEN>"
-      }
-    }
-  }
-}
-```
+   b. **User-level .mcp.json** (persistent config, survives reloads):
+      - Path: `~/.mcp.json`
+      - Merge playwright-ext into existing mcpServers if present
 
-4. After writing the file, inform the user:
+   c. **Plugin cache .mcp.json** (immediate effect, patched on reload):
+      - Find path: `~/.claude/plugins/cache/playwright-browser-connector/playwright-browser-connector/*/`
+      - Directly patch the PLAYWRIGHT_MCP_EXTENSION_TOKEN value
+
+3. After writing the files, inform the user:
    - Configuration saved successfully
    - **Restart Claude Code** for the new MCP server to connect
    - After restart, use `mcp__playwright-ext__*` tools to operate on the existing browser
@@ -46,6 +42,6 @@ Configure the Playwright MCP server to connect to the user's existing Chrome bro
 
 ## Important Notes
 
-- Do NOT place this config inside a plugin's `.mcp.json` — plugin-level env vars are not reliably passed to MCP processes
-- The project-level `.mcp.json` (in the working directory or home directory) is the correct location
+- The SessionStart hook automatically patches the plugin cache on every session start, so `/reload-plugins` won't break the connection
+- The user-level `~/.mcp.json` serves as the persistent token storage
 - If the user already has a `.mcp.json` with other servers, preserve those entries
